@@ -1,0 +1,109 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+        <h:head>
+            <style type="text/css">
+                .ui-widget, .ui-widget .ui-widget{
+                    font-size: 12px !important;
+                }
+            </style>
+            <f:facet name="first">
+                <meta http-equiv="X-UA-Compatible" content="EmulateIE8" />
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>Insert Inventory | Mongo DB</title>
+            </f:facet>
+
+            <link type="text/css" rel="stylesheet" href="#{request.contextPath}/css/default.css" />
+            <link type="text/css" rel="stylesheet" href="#{request.contextPath}/css/syntaxhighlighter/syntaxhighlighter.css" />
+
+            <style type="text/css">
+                .ui-layout-north {
+                    z-index:20 !important;
+                    overflow:visible !important;;
+                }
+
+                .ui-layout-north .ui-layout-unit-content {
+                    overflow:visible !important;
+                }
+            </style>
+        </h:head>
+
+
+        <h:body>
+
+            <p:layout fullPage="true" >
+
+                <p:layoutUnit id="top" position="north" size="50">
+
+                    <h:form>
+                        <p:menubar>
+                            <p:menuitem value="Add Inventory" icon="ui-icon-plusthick" url="faces/insertInventory."/>
+                            <p:menuitem value="Home" icon="ui-icon-home" url="faces/index.xhtml"/>
+                            <p:menuitem value="Add JSON" icon="ui-icon-comment" url="#"/>
+                        </p:menubar>
+                    </h:form>
+                </p:layoutUnit>
+                <br/><br/><br/><br/><br/><br/><br/><br/>
+                <p:layoutUnit id="right" position="east" size="300" header="Options" resizable="true" closable="true" collapsible="true" style="text-align:center" minSize="200">
+                    <p:accordionPanel>
+                        <p:tab title="Calander">
+                            <br />
+                            <p:calendar mode="inline" navigator="none" />
+                            <br />
+                        </p:tab>
+
+                        <p:tab title="Current Time">
+                            <br/>
+                            <p:clock pattern="HH:mm:ss  dd/MM/yyyy" mode="server"/>
+                            <br/>
+                        </p:tab>
+                    </p:accordionPanel>
+
+
+                </p:layoutUnit>
+
+                <p:layoutUnit id="center" position="center">
+                    <h:form id="regMe">
+                        <p:growl id="growl" showDetail="true" sticky="true" />
+                        <p:panelGrid columns="2" id="grid">
+                            <f:facet name="header">
+                                Add Inventory
+                            </f:facet>
+                            <h:outputLabel for="itemName" value="Item Name: *" />
+                            <p:inputText id="itemName" required="true" label="Item Name"
+                                         value="#{insertInventory.itemName}" />
+                            <h:outputLabel for="producerName" value="Manufacturers Name: *" />
+                            <p:inputText id="producerName" required="true" label="Manufacturers Name"
+                                         value="#{insertInventory.producerName}" />
+                            <h:outputLabel for="barcode" value="Item Code: *" />
+                            <p:inputText id="barcode" required="true" label="Item Code"
+                                         value="#{insertInventory.barcode}" />
+                            <f:facet name="footer">
+                                <p:commandButton type="reset" value="Reset" icon="ui-icon-check"
+                                                 style="margin:0" actionListener="#{insertInventory.resetData()}" />
+                                <h:outputLabel value="&nbsp;&nbsp;&nbsp;&nbsp;" />
+                                <p:commandButton value="Submit" icon="ui-icon-check" id="submit"
+                                                 update="grid,growl"
+                                                 actionListener="#{insertInventory.insertData()}" />
+                            </f:facet>
+                        </p:panelGrid>
+
+
+                    </h:form>
+                </p:layoutUnit>
+
+            </p:layout>
+
+            <p:dialog header="Basic Dialog" widgetVar="dlg" modal="true">
+                <h:outputText value="Resistance to PrimeFaces is futile!" />
+            </p:dialog>
+
+        </h:body>
+
+    </f:view>
+</html>

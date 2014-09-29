@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+        <h:head>
+            <style type="text/css">
+                .ui-widget, .ui-widget .ui-widget{
+                    font-size: 12px !important;
+                }
+            </style>
+            <f:facet name="first">
+                <meta http-equiv="X-UA-Compatible" content="EmulateIE8" />
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>Welcome | Mongo DB</title>
+            </f:facet>
+
+            <link type="text/css" rel="stylesheet" href="#{request.contextPath}/css/default.css" />
+            <link type="text/css" rel="stylesheet" href="#{request.contextPath}/css/syntaxhighlighter/syntaxhighlighter.css" />
+
+            <style type="text/css">
+                .ui-layout-north {
+                    z-index:20 !important;
+                    overflow:visible !important;;
+                }
+
+                .ui-layout-north .ui-layout-unit-content {
+                    overflow:visible !important;
+                }
+            </style>
+        </h:head>
+
+
+        <h:body>
+
+            <p:layout fullPage="true" >
+
+                <p:layoutUnit id="top" position="north" size="50">
+
+                    <h:form id="menubar">
+                        <p:menubar>
+                            <p:menuitem value="Add Inventory" icon="ui-icon-plusthick" url="faces/insertInventory.xhtml"/>
+                            <p:menuitem value="View Inventories" icon="ui-icon-folder-open" url="faces/viewInventory.xhtml"/>
+                            <p:menuitem value="Add JSON" icon="ui-icon-comment" url="faces/insertJSON.xhtml"/>
+                        </p:menubar>
+                    </h:form>
+                </p:layoutUnit>
+                <br/><br/><br/><br/><br/><br/><br/><br/>
+
+                <p:layoutUnit id="left" position="west" size="350" resizable="true" closable="true" collapsible="true" header="Login" minSize="200">
+                    <h:panelGrid columns="3" cellpadding="8">
+                        <h:form id="login">
+                            <p:growl id="glowl" life="2000"/>
+                            <h:outputLabel for="name" value="Username :  " style="font-weight: bold"/>
+                            <p:inputText id="username" value="#{login.username}"/>
+                            <br/><br/>
+                            <h:outputLabel for="name" value="Password :  " style=" font-weight: bold "/>
+                            <p:password id="password" value="#{login.password}"/>
+                            <p:watermark for="username" value="Username" id="userWMK"/>
+                            <p:watermark for="password" value="Password" id="passWMK"/>
+                            <br/><br/>
+                            <p:commandButton icon="ui-icon-locked" id="ajax" actionListener="#{login.logMe()}"  onclick="Primefaces.cleanWatermarks();" oncomplete="Primefaces.showWatermarks();" value="Submit" update="glowl" /> 
+                        </h:form>   
+                    </h:panelGrid>
+                </p:layoutUnit>
+
+                <p:layoutUnit id="right" position="east" size="300" header="Options" resizable="true" closable="true" collapsible="true" style="text-align:center" minSize="200">
+                    <p:accordionPanel>
+                        <p:tab title="Calander">
+                            <br />
+                            <p:calendar mode="inline" navigator="none" />
+                            <br />
+                        </p:tab>
+
+                        <p:tab title="Current Time">
+                            <br/>
+                            <p:clock pattern="HH:mm:ss  dd/MM/yyyy" mode="server"/>
+                            <br/>
+                        </p:tab>
+                    </p:accordionPanel>
+
+
+                </p:layoutUnit>
+
+                <p:layoutUnit id="center" position="center">
+
+                </p:layoutUnit>
+
+            </p:layout>
+
+            <p:dialog header="Basic Dialog" widgetVar="dlg" modal="true">
+                <h:outputText value="Resistance to PrimeFaces is futile!" />
+            </p:dialog>
+
+        </h:body>
+
+    </f:view>
+</html>
